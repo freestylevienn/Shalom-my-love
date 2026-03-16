@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For My Kamama 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Homemade+Apple&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Satisfy&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --royal: #5b0fa8;
+  --royal-dark: #3a0870;
+  --royal-mid: #7b2fd4;
+  --royal-light: #c89ef5;
+  --royal-pale: #ede0ff;
+  --gold: #d4a017;
+  --gold-light: #f0d080;
+  --cream: #fdf6e3;
+  --paper: #faf3e0;
+  --paper-line: #d8c9b0;
+  --ink: #2a1a4a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--royal-dark); font-family: 'Caveat', cursive; color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background-image: radial-gradient(ellipse at 20% 50%, rgba(123,47,212,0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(91,15,168,0.3) 0%, transparent 50%);
+  z-index: 0;
+}
+
+/* FLOATING BG */
+.bg-floats { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.bg-photo { position: absolute; border-radius: 50%; border: 3px solid var(--gold-light); box-shadow: 0 0 20px rgba(212,160,23,0.3); overflow: hidden; opacity: 0; animation: floatPhoto linear infinite; background: linear-gradient(135deg, var(--royal-pale), var(--royal-light)); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.bg-photo img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+@keyframes floatPhoto { 0% { opacity:0; transform:translateY(105vh) rotate(-6deg) scale(0.85); } 8% { opacity:0.35; } 90% { opacity:0.2; } 100% { opacity:0; transform:translateY(-10vh) rotate(6deg) scale(1.05); } }
+.heart-float { position:absolute; opacity:0; animation:floatUp linear infinite; pointer-events:none; }
+@keyframes floatUp { 0% { opacity:0; transform:translateY(100vh); } 10% { opacity:0.5; } 90% { opacity:0.15; } 100% { opacity:0; transform:translateY(-10vh); } }
+
+/* SPLASH */
+#splash { position:fixed; inset:0; background:radial-gradient(ellipse at center, #2a0650 0%, #0d021e 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:200; transition:opacity 1s ease, transform 1s ease; text-align:center; padding:2rem; }
+#splash.hide { opacity:0; transform:scale(1.06); pointer-events:none; }
+.splash-stars { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.star { position:absolute; width:2px; height:2px; background:white; border-radius:50%; animation:twinkle ease-in-out infinite; }
+@keyframes twinkle { 0%,100% { opacity:0.1; transform:scale(1); } 50% { opacity:1; transform:scale(1.8); } }
+.splash-seal { font-size:5rem; animation:sealPulse 2s ease-in-out infinite; filter:drop-shadow(0 0 20px rgba(212,160,23,0.6)); }
+@keyframes sealPulse { 0%,100% { transform:scale(1) rotate(-3deg); } 50% { transform:scale(1.1) rotate(3deg); } }
+.splash-title { font-family:'Homemade Apple', cursive; font-size:clamp(1.8rem,6vw,3.5rem); color:var(--gold-light); text-shadow:0 0 30px rgba(212,160,23,0.5), 2px 2px 0 rgba(0,0,0,0.4); margin:1.2rem 0 0.6rem; position:relative; z-index:1; line-height:1.4; }
+.splash-sub { font-family:'Crimson Text', serif; font-style:italic; font-size:clamp(1rem,2.5vw,1.3rem); color:var(--royal-light); position:relative; z-index:1; }
+.start-btn { margin-top:2.5rem; padding:1rem 2.8rem; background:linear-gradient(135deg, var(--gold) 0%, #b8860b 100%); color:#1a0030; border:none; border-radius:50px; font-family:'Caveat', cursive; font-size:1.3rem; font-weight:700; cursor:pointer; box-shadow:0 6px 24px rgba(212,160,23,0.5); transition:transform 0.2s, box-shadow 0.2s; position:relative; z-index:1; }
+.start-btn:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 12px 32px rgba(212,160,23,0.6); }
+
+/* ENVELOPE STAGE */
+#envelopeStage { display:none; position:fixed; inset:0; background:radial-gradient(ellipse at center, #1a0340 0%, #0a0118 100%); align-items:center; justify-content:center; z-index:150; flex-direction:column; gap:1.5rem; }
+#envelopeStage.show { display:flex; }
+.env-label { font-family:'Homemade Apple', cursive; font-size:clamp(1rem,3vw,1.6rem); color:var(--gold-light); text-align:center; opacity:0; transform:translateY(10px); transition:opacity 0.6s ease, transform 0.6s ease; padding:0 1rem; }
+.env-label.show { opacity:1; transform:translateY(0); }
+.envelope-wrap { position:relative; width:min(340px,85vw); height:min(240px,60vw); cursor:pointer; perspective:800px; }
+.env-body { position:absolute; inset:0; background:linear-gradient(160deg, #4a0a90 0%, #2a055a 60%, #1a0340 100%); border-radius:4px 4px 8px 8px; box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,160,23,0.3); overflow:hidden; }
+.env-body::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, transparent 49.5%, rgba(212,160,23,0.15) 49.5%, rgba(212,160,23,0.15) 50.5%, transparent 50.5%), linear-gradient(225deg, transparent 49.5%, rgba(212,160,23,0.15) 49.5%, rgba(212,160,23,0.15) 50.5%, transparent 50.5%); }
+.env-trim { position:absolute; inset:4px; border:1px solid rgba(212,160,23,0.4); border-radius:3px 3px 6px 6px; pointer-events:none; }
+.env-seal { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:64px; height:64px; background:radial-gradient(circle at 35% 35%, #c0392b, #7b0d0d); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; box-shadow:0 4px 16px rgba(0,0,0,0.5); transition:transform 0.4s ease, opacity 0.4s ease; z-index:5; }
+.env-seal.cracked { transform:translate(-50%,-50%) scale(0) rotate(30deg); opacity:0; }
+.env-flap { position:absolute; top:0; left:0; right:0; height:54%; transform-origin:top center; transform-style:preserve-3d; transition:transform 0.9s cubic-bezier(0.4,0,0.2,1); z-index:10; }
+.env-flap-face { position:absolute; inset:0; background:linear-gradient(160deg, #6a1ad0 0%, #3d0880 50%, #2a055a 100%); clip-path:polygon(0% 0%, 100% 0%, 50% 100%); }
+.env-flap.open { transform:rotateX(-175deg); }
+.env-letter-peek { position:absolute; bottom:10px; left:12px; right:12px; height:0; background:var(--paper); border-radius:3px; transition:height 0.7s cubic-bezier(0.4,0,0.2,1) 0.6s, bottom 0.7s ease 0.6s; z-index:3; }
+.env-letter-peek.rising { height:70px; bottom:50px; }
+.open-hint { font-family:'Caveat', cursive; font-size:1.1rem; color:var(--gold-light); opacity:0; transition:opacity 0.5s ease 1s; text-align:center; animation:hintPulse 2s ease-in-out 1.5s infinite; }
+.open-hint.show { opacity:1; }
+@keyframes hintPulse { 0%,100% { opacity:0.7; transform:translateY(0); } 50% { opacity:1; transform:translateY(-4px); } }
+
+/* MAIN */
+#main { display:none; flex-direction:column; align-items:center; padding:2rem 1rem 5rem; position:relative; z-index:2; min-height:100vh; }
+.page-header { text-align:center; margin-bottom:1.8rem; animation:fadeSlideDown 0.7s ease both; }
+.page-header h1 { font-family:'Homemade Apple', cursive; font-size:clamp(1.6rem,4.5vw,2.8rem); color:var(--gold-light); text-shadow:0 0 20px rgba(212,160,23,0.4); line-height:1.5; }
+.page-header p { font-family:'Crimson Text', serif; font-style:italic; color:var(--royal-light); font-size:1.05rem; margin-top:0.5rem; }
+
+/* DOTS */
+.progress-wrap { display:flex; gap:10px; margin-bottom:1.8rem; flex-wrap:wrap; justify-content:center; }
+.dot { width:14px; height:14px; border-radius:50%; background:rgba(200,158,245,0.2); border:2px solid rgba(200,158,245,0.4); transition:background 0.4s, transform 0.3s; cursor:pointer; }
+.dot.active { background:var(--gold); transform:scale(1.35); border-color:var(--gold-light); }
+.dot.done { background:var(--royal-mid); border-color:var(--royal-light); }
+
+/* LETTER CARD */
+.letter-area { width:100%; max-width:680px; }
+.letter-card { display:none; position:relative; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,160,23,0.2); animation:cardReveal 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both; overflow:hidden; }
+.letter-card.active { display:block; }
+.paper-bg { position:absolute; inset:0; background-color:var(--paper); background-image:repeating-linear-gradient(transparent, transparent 31px, var(--paper-line) 31px, var(--paper-line) 32px); background-size:auto 32px; background-position:0 56px; z-index:0; }
+.margin-line { position:absolute; top:0; bottom:0; left:52px; width:1px; background:rgba(180,60,60,0.35); z-index:1; }
+.hole { position:absolute; left:18px; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 40% 35%, #c8b8e8, #3a0870); box-shadow:inset 0 2px 4px rgba(0,0,0,0.3); z-index:2; }
+.hole-1 { top:15%; } .hole-2 { top:50%; } .hole-3 { top:85%; }
+.letter-inner { position:relative; z-index:3; padding:2.2rem 2.2rem 2rem 4.2rem; }
+.letter-number { font-family:'Satisfy', cursive; font-size:0.9rem; color:rgba(91,15,168,0.6); margin-bottom:0.4rem; }
+.letter-greeting { font-family:'Homemade Apple', cursive; font-size:clamp(1.3rem,3.5vw,1.8rem); color:var(--royal); margin-bottom:1.2rem; line-height:1.5; }
+.letter-body { font-family:'Caveat', cursive; font-size:clamp(1.1rem,2.5vw,1.3rem); line-height:2; color:var(--ink); }
+.letter-body p { margin-bottom:0.3rem; }
+.letter-sign { font-family:'Homemade Apple', cursive; font-size:clamp(1rem,2.5vw,1.3rem); color:var(--royal); margin-top:1.8rem; text-align:right; line-height:1.6; }
+.stamp { position:absolute; top:14px; right:14px; width:52px; height:62px; background:linear-gradient(135deg, var(--royal-pale), #d8c0f8); border:2px solid var(--royal); display:flex; align-items:center; justify-content:center; font-size:1.6rem; z-index:4; box-shadow:2px 2px 6px rgba(0,0,0,0.2); }
+.stamp::before { content:''; position:absolute; inset:3px; border:1px dashed rgba(91,15,168,0.4); }
+
+/* PHOTO SECTION */
+.photo-holder-section { width:100%; max-width:680px; margin:1.6rem 0 0.4rem; display:none; }
+.photo-holder-section.active { display:block; }
+.photo-holder-label { font-family:'Homemade Apple', cursive; font-size:1.05rem; color:var(--gold-light); margin-bottom:0.9rem; text-align:center; }
+.photo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.photo-slot { border-radius:4px; overflow:hidden; border:2px dashed rgba(200,158,245,0.5); background:rgba(91,15,168,0.2); height:190px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.5rem; color:var(--royal-light); font-family:'Caveat', cursive; font-size:1rem; cursor:pointer; position:relative; text-align:center; padding:0.5rem; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+.photo-slot:hover { background:rgba(123,47,212,0.3); border-color:var(--gold-light); }
+.photo-slot .slot-icon { font-size:2.2rem; }
+.photo-slot input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.photo-slot img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+
+/* NAV */
+.nav-row { display:flex; align-items:center; justify-content:space-between; margin-top:1.8rem; width:100%; max-width:680px; }
+.nav-btn { padding:0.8rem 1.8rem; border-radius:4px; border:none; font-family:'Caveat', cursive; font-weight:700; font-size:1.1rem; cursor:pointer; transition:transform 0.2s, opacity 0.3s; }
+.nav-btn.prev { background:rgba(91,15,168,0.3); color:var(--royal-light); border:1px solid rgba(200,158,245,0.4); }
+.nav-btn.next { background:linear-gradient(135deg, var(--gold) 0%, #b8860b 100%); color:#1a0030; box-shadow:0 6px 18px rgba(212,160,23,0.4); }
+.nav-btn:hover { transform:translateY(-2px); }
+.nav-btn:disabled { opacity:0.3; cursor:default; transform:none; }
+.letter-counter { font-family:'Crimson Text', serif; font-style:italic; color:var(--royal-light); font-size:0.92rem; }
+
+/* FINALE */
+#finale { display:none; flex-direction:column; align-items:center; text-align:center; padding:2rem 1rem 1rem; max-width:680px; width:100%; }
+#finale.active { display:flex; animation:fadeSlideDown 0.7s ease both; }
+.finale-seal { font-size:5rem; animation:sealPulse 2s ease-in-out infinite; filter:drop-shadow(0 0 16px rgba(212,160,23,0.5)); }
+.finale-title { font-family:'Homemade Apple', cursive; font-size:clamp(2rem,6vw,3.2rem); color:var(--gold-light); margin:1rem 0 0.5rem; line-height:1.5; }
+.finale-msg { font-family:'Caveat', cursive; font-size:clamp(1.1rem,2.5vw,1.35rem); color:var(--royal-pale); line-height:1.9; max-width:500px; }
+.restart-btn { margin-top:1.5rem; padding:0.9rem 2.2rem; background:transparent; color:var(--gold-light); border:1px solid var(--gold-light); border-radius:4px; font-family:'Caveat', cursive; font-weight:700; font-size:1.1rem; cursor:pointer; transition:all 0.2s; }
+.restart-btn:hover { background:rgba(212,160,23,0.15); transform:translateY(-2px); }
+
+/* GALLERY */
+#gallerySection { display:none; flex-direction:column; align-items:center; width:100%; max-width:780px; margin-top:3rem; padding:0 1rem; animation:fadeSlideDown 0.8s ease both; }
+#gallerySection.active { display:flex; }
+.gallery-heading { font-family:'Homemade Apple', cursive; font-size:clamp(1.4rem,4vw,2.2rem); color:var(--gold-light); text-align:center; margin-bottom:0.4rem; }
+.gallery-sub { font-family:'Crimson Text', serif; font-style:italic; color:var(--royal-light); font-size:1rem; text-align:center; margin-bottom:2rem; }
+.polaroid-board { width:100%; background:#1a0135; border-radius:12px; border:1px solid rgba(212,160,23,0.2); box-shadow:0 24px 60px rgba(0,0,0,0.5); padding:2rem 1.2rem 2.5rem; display:flex; flex-wrap:wrap; justify-content:center; min-height:320px; }
+.polaroid { background:#f5f0e8; padding:10px 10px 36px 10px; box-shadow:0 8px 24px rgba(0,0,0,0.55); position:relative; cursor:pointer; transition:transform 0.25s ease, box-shadow 0.25s ease; margin:12px; flex-shrink:0; }
+.polaroid:hover { transform:scale(1.08) rotate(0deg) !important; box-shadow:0 20px 50px rgba(0,0,0,0.7), 0 0 0 2px var(--gold-light); z-index:10; }
+.polaroid-img { width:140px; height:140px; background:linear-gradient(135deg, #2a0650, #4a1090); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+.polaroid-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.empty-icon { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; font-size:2.4rem; opacity:0.5; }
+.empty-icon span { font-family:'Caveat', cursive; font-size:0.72rem; color:var(--royal-light); opacity:0.8; text-align:center; }
+.polaroid-img input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.polaroid-caption { position:absolute; bottom:0; left:0; right:0; height:36px; display:flex; align-items:center; justify-content:center; }
+.polaroid-caption span { font-family:'Caveat', cursive; font-size:0.82rem; color:#5a3060; text-align:center; }
+.polaroid-pin { position:absolute; top:-10px; left:50%; transform:translateX(-50%); width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #d4a017, #7a5800); box-shadow:0 2px 6px rgba(0,0,0,0.5); z-index:5; }
+
+/* VOICE PLAYER */
+#voiceSection { display:none; flex-direction:column; align-items:center; width:100%; max-width:500px; margin-top:2.5rem; padding:0 1rem 3rem; animation:fadeSlideDown 0.9s ease 0.2s both; }
+#voiceSection.active { display:flex; }
+.voice-heading { font-family:'Homemade Apple', cursive; font-size:clamp(1.2rem,3.5vw,1.8rem); color:var(--gold-light); text-align:center; margin-bottom:0.4rem; }
+.voice-sub { font-family:'Crimson Text', serif; font-style:italic; color:var(--royal-light); font-size:0.95rem; text-align:center; margin-bottom:1.8rem; }
+.cassette-player { width:100%; max-width:380px; background:linear-gradient(160deg, #1e0445 0%, #120230 100%); border-radius:16px; border:1px solid rgba(212,160,23,0.3); box-shadow:0 20px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,160,23,0.15); padding:1.6rem 1.8rem 1.4rem; position:relative; }
+.cassette-label-top { font-family:'Caveat', cursive; font-size:0.75rem; color:rgba(200,158,245,0.5); letter-spacing:3px; text-transform:uppercase; text-align:center; margin-bottom:1rem; }
+.tape-window { background:#0a0118; border-radius:10px; border:1px solid rgba(212,160,23,0.2); padding:1rem 1.2rem; margin-bottom:1.2rem; box-shadow:inset 0 4px 16px rgba(0,0,0,0.6); }
+.tape-title { font-family:'Homemade Apple', cursive; font-size:1rem; color:var(--gold-light); text-align:center; margin-bottom:0.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tape-reels { display:flex; justify-content:space-around; align-items:center; padding:0.2rem 0; }
+.reel { width:52px; height:52px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #4a1090, #1a0340); border:2px solid rgba(212,160,23,0.3); position:relative; box-shadow:0 4px 12px rgba(0,0,0,0.5); }
+.reel::before { content:''; position:absolute; inset:8px; border-radius:50%; background:radial-gradient(circle at 40% 40%, #2a0560, #0d0120); border:1px solid rgba(212,160,23,0.2); }
+.reel::after { content:''; position:absolute; inset:22px; border-radius:50%; background:var(--gold); opacity:0.7; }
+.reel.spinning { animation:reelSpin 1.2s linear infinite; }
+@keyframes reelSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+.tape-connector { font-size:0.7rem; color:rgba(212,160,23,0.4); letter-spacing:1px; }
+.tape-progress-wrap { margin-top:0.8rem; height:4px; background:rgba(255,255,255,0.08); border-radius:4px; overflow:hidden; cursor:pointer; }
+.tape-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, var(--royal-mid), var(--gold)); border-radius:4px; transition:width 0.3s linear; }
+.tape-time { display:flex; justify-content:space-between; margin-top:0.4rem; font-family:'Caveat', cursive; font-size:0.8rem; color:rgba(200,158,245,0.5); }
+.cassette-controls { display:flex; justify-content:center; align-items:center; gap:1rem; margin-top:0.4rem; }
+.ctrl-btn { width:42px; height:42px; border-radius:50%; border:1px solid rgba(212,160,23,0.3); background:rgba(91,15,168,0.25); color:var(--gold-light); display:flex; align-items:center; justify-content:center; font-size:1rem; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 4px 12px rgba(0,0,0,0.4); }
+.ctrl-btn:hover { background:rgba(123,47,212,0.45); transform:scale(1.08); }
+.ctrl-btn.play-btn { width:56px; height:56px; font-size:1.4rem; background:linear-gradient(135deg, var(--gold), #9a6500); color:#1a0030; border:none; box-shadow:0 6px 20px rgba(212,160,23,0.45); }
+.ctrl-btn.play-btn:hover { background:linear-gradient(135deg, #f0d080, var(--gold)); }
+.audio-upload-row { display:flex; align-items:center; justify-content:center; margin-top:1.2rem; }
+.upload-audio-btn { position:relative; padding:0.6rem 1.4rem; background:transparent; border:1px dashed rgba(200,158,245,0.4); border-radius:4px; color:var(--royal-light); font-family:'Caveat', cursive; font-size:1rem; cursor:pointer; overflow:hidden; display:inline-block; }
+.upload-audio-btn:hover { border-color:var(--gold-light); background:rgba(212,160,23,0.08); }
+.upload-audio-btn input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.audio-upload-note { font-family:'Crimson Text', serif; font-style:italic; font-size:0.82rem; color:rgba(200,158,245,0.4); text-align:center; margin-top:0.6rem; }
+
+@keyframes fadeSlideDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes cardReveal { from { opacity:0; transform:translateY(24px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+</style>
+</head>
+<body>
+
+<div class="bg-floats" id="bgFloats"></div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-stars" id="splashStars"></div>
+  <div class="splash-seal">💜</div>
+  <div class="splash-title">For You, Kamama</div>
+  <div class="splash-sub">Something small, made with a whole lot of love…</div>
+  <button class="start-btn" onclick="startJourney()">Open Your Letters 💜</button>
+</div>
+
+<!-- ENVELOPE -->
+<div id="envelopeStage">
+  <div class="env-label" id="envLabel">A new letter awaits you…</div>
+  <div class="envelope-wrap" id="envelopeWrap" onclick="openEnvelope()">
+    <div class="env-body"></div>
+    <div class="env-trim"></div>
+    <div class="env-letter-peek" id="letterPeek"></div>
+    <div class="env-flap" id="envFlap"><div class="env-flap-face"></div></div>
+    <div class="env-seal" id="envSeal">💜</div>
+  </div>
+  <div class="open-hint" id="openHint">✦ tap to unseal ✦</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="page-header">
+    <h1>Letters for Shalom</h1>
+    <p>seven letters, sealed with love 💜</p>
+  </div>
+  <div class="progress-wrap" id="progressDots"></div>
+  <div class="letter-area" id="letterArea"></div>
+  <div class="photo-holder-section" id="photoSection">
+    <div class="photo-holder-label" id="photoLabel">📸 A little memory of us</div>
+    <div class="photo-grid" id="photoGrid"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn prev" id="prevBtn" onclick="navigate(-1)" disabled>← back</button>
+    <span class="letter-counter" id="counterText">Letter 1 of 7</span>
+    <button class="nav-btn next" id="nextBtn" onclick="navigate(1)">next →</button>
+  </div>
+
+  <!-- FINALE -->
+  <div id="finale">
+    <div class="finale-seal">💜</div>
+    <div class="finale-title">I Love You, Kamama</div>
+    <div class="finale-msg">
+      You've reached the end — but never the end of my love.<br/><br/>
+      You take accountability. You listen. You show up. You talk to me instead of shutting down.
+      You have built a business that is thriving because of everything you are.<br/><br/>
+      Shalom, you are one of the most genuinely remarkable people I have ever known.
+      And I get to love you. What a privilege. What a gift. 🎂<br/><br/>
+      Forever yours. Always.
+    </div>
+    <button class="restart-btn" onclick="restart()">read again 💌</button>
+  </div>
+
+  <!-- GALLERY -->
+  <div id="gallerySection">
+    <div class="gallery-heading">Our Little Gallery</div>
+    <div class="gallery-sub">tap each print to add a photo 📸</div>
+    <div class="polaroid-board" id="polaroidBoard"></div>
+  </div>
+
+  <!-- VOICE PLAYER -->
+  <div id="voiceSection">
+    <div class="voice-heading">A Message For You</div>
+    <div class="voice-sub">press play — I recorded something just for you 💜</div>
+    <div class="cassette-player">
+      <div class="cassette-label-top">✦ &nbsp; side a &nbsp; ✦</div>
+      <div class="tape-window">
+        <div class="tape-title" id="tapeTitle">— for my kamama —</div>
+        <div class="tape-reels">
+          <div class="reel" id="reelLeft"></div>
+          <div class="tape-connector">▬▬▬</div>
+          <div class="reel" id="reelRight"></div>
+        </div>
+        <div class="tape-progress-wrap" id="progressWrap" onclick="seekAudio(event)">
+          <div class="tape-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="tape-time">
+          <span id="timeElapsed">0:00</span>
+          <span id="timeDuration">0:00</span>
+        </div>
+      </div>
+      <div class="cassette-controls">
+        <button class="ctrl-btn" onclick="skipAudio(-10)">⏪</button>
+        <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+        <button class="ctrl-btn" onclick="skipAudio(10)">⏩</button>
+      </div>
+      <div class="audio-upload-row">
+        <label class="upload-audio-btn">
+          🎙 upload your recording
+          <input type="file" accept="audio/*" onchange="loadAudio(event)"/>
+        </label>
+      </div>
+      <div class="audio-upload-note">supports mp3, m4a, wav • upload your voice note here</div>
+    </div>
+    <audio id="audioEl"></audio>
+  </div>
+
+</div><!-- end #main -->
+
+<script>
+// ─── DATA ───────────────────────────────────────────
+const letters = [
+  {
+    number: "Letter No. 1", greeting: "My Dearest Kamama,", stamp: "💜",
+    body: `<p>There's something I've been carrying for a while now — something that goes beyond the everyday "I love you" and sits a little deeper in my chest. And I think it's time I said it properly.</p>
+           <p>I have been watching you grow. Not from a distance — right up close, in all the ordinary moments. And Shalom, what I've seen has genuinely moved me.</p>
+           <p>You are not the same person you were. And I mean that as the most beautiful thing I could ever say to someone. You've done real, quiet, difficult work on yourself — and it shows. In ways I don't think you've fully noticed yet. But I have. I've been noticing for a while.</p>
+           <p>This letter is the beginning of me telling you exactly what I've seen.</p>`,
+    sign: "— Yours, always 🌷"
+  },
+  {
+    number: "Letter No. 2", greeting: "Hey, Beautiful,", stamp: "🌸",
+    body: `<p>One of the things I've noticed — and I want to say this carefully, because it deserves to be said carefully — is the way you've learned to take accountability.</p>
+           <p>That is not a small thing, Kamama. Most people spend their whole lives finding ways around that. But you? When something goes wrong, when there's been a misunderstanding or a mistake, I've watched you stop, sit with it, and own your part. Without excuses. Without deflecting.</p>
+           <p>Do you know how rare that is? It takes real courage to say "I got that wrong." And you do it. I see it. I appreciate it more than I know how to say.</p>`,
+    sign: "— So proud of you 🌷"
+  },
+  {
+    number: "Letter No. 3", greeting: "Shalom, my love,", stamp: "✨",
+    body: `<p>I want to talk about the way you listen now. Because it has changed — and it has changed things between us in the best possible way.</p>
+           <p>You actually hear people now. Not just waiting for your turn to speak — truly listening. I see it in how you respond, in the questions you ask, in the way you remember things people said weeks ago.</p>
+           <p>And the way you listen to me — it makes me feel so seen. So safe. You don't rush me. You don't dismiss me. You sit with what I say and take it seriously. That is one of the most loving things one person can do for another. Thank you for giving me that.</p>`,
+    sign: "— With everything I have 🌸"
+  },
+  {
+    number: "Letter No. 4", greeting: "Kamama, hey you,", stamp: "💫",
+    body: `<p>You come through. I just want to say that plainly, because it deserves to be said plainly.</p>
+           <p>When you say you'll do something — you do it. When someone needs you — you show up. When it matters — you're there. That kind of reliability is something people search for their whole lives in the people they love.</p>
+           <p>I've leaned on you, Shalom. In quiet ways and in bigger ways. And every single time, you've been there. Steady. Present. Real. I don't take that for granted — not for a single day.</p>`,
+    sign: "— Your person, always 💜"
+  },
+  {
+    number: "Letter No. 5", greeting: "To My Sweet Shalom,", stamp: "🌹",
+    body: `<p>This one I want you to really sit with — because I think it might be the change I'm most proud of you for.</p>
+           <p>You communicate now. Instead of going quiet, instead of letting anger speak for you, instead of shutting down when something hurts — you talk to me. You find the words. Even when it's hard. Even when you'd rather not.</p>
+           <p>That is huge. That is everything. Because every time you choose to say "this hurt me" instead of disappearing into silence, you are choosing us. I see that choice. I feel it. And I will never stop being grateful for it.</p>`,
+    sign: "— Your safe place 💙"
+  },
+  {
+    number: "Letter No. 6", greeting: "Dearest Kamama,", stamp: "💎",
+    body: `<p>I want you to read this letter slowly. Because I want every word to land.</p>
+           <p>The woman you are right now — the one who takes accountability, who listens, who shows up, who chooses words over walls — she is extraordinary. Not perfect. Not without struggle. But extraordinary in the ways that actually count.</p>
+           <p>I know the work it takes to change. I know it isn't always visible from the outside. I know there are days where you've had to choose growth over comfort, patience over reaction, love over pride. I've seen those days. And I've watched you choose well — again and again.</p>
+           <p>You are someone I deeply, deeply admire. And I am so lucky you're mine.</p>`,
+    sign: "— Forever in your corner 🌷"
+  },
+  {
+    number: "Letter No. 7", greeting: "My Favourite Person,", stamp: "🎂",
+    body: `<p>I saved this letter for last on purpose — because this is where I want to end. With you, in your element, doing the thing that makes your whole face light up.</p>
+           <p>Your cake business is thriving, Kamama. And I know that didn't happen by chance. It happened because you poured yourself into it — your creativity, your eye for beauty, your care in every single detail. People taste the love in what you make.</p>
+           <p>I want you to know that I am behind you. Fully, loudly, without condition. Not because I have to be — but because watching you build something of your own, watching you succeed at something you created from scratch, makes me so proud I could burst.</p>
+           <p>Keep going, Shalom. The world deserves more of what you make. And I'll be right here — cheering the loudest, eating the most, and loving you through every single chapter of it. Always.</p>`,
+    sign: "— Your biggest fan 🎂💜"
+  }
+];
+
+const photoAfter = new Set([1, 3, 5]);
+const photoLabels = {
+  1: "📸 a little memory of us — add one here",
+  3: "🎂 maybe one of her cakes, or you two together?",
+  5: "💜 one last photo spot — make it a favourite"
+};
+const uploadedPhotos = {};
+const polaroidCaptions = ["just us 💜","my fav","always smiling","golden hour","shalom 🌸","kamama ✦","our story","forever this"];
+const galleryPhotos = {};
+let current = 0;
+let envelopeOpened = false;
+let pendingIndex = 0;
+let isPlaying = false;
+const TOTAL = letters.length;
+
+// ─── BUILD LETTERS ───────────────────────────────────
+function buildUI() {
+  const area = document.getElementById('letterArea');
+  const dots = document.getElementById('progressDots');
+  area.innerHTML = ''; dots.innerHTML = '';
+  letters.forEach(function(l, i) {
+    var dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    (function(idx){ dot.onclick = function(){ triggerEnvelope(idx); }; })(i);
+    dots.appendChild(dot);
+    var card = document.createElement('div');
+    card.className = 'letter-card' + (i === 0 ? ' active' : '');
+    card.id = 'card-' + i;
+    card.innerHTML =
+      '<div class="paper-bg"></div>' +
+      '<div class="margin-line"></div>' +
+      '<div class="hole hole-1"></div>' +
+      '<div class="hole hole-2"></div>' +
+      '<div class="hole hole-3"></div>' +
+      '<div class="letter-inner">' +
+        '<div class="stamp">' + l.stamp + '</div>' +
+        '<div class="letter-number">' + l.number + '</div>' +
+        '<div class="letter-greeting">' + l.greeting + '</div>' +
+        '<div class="letter-body">' + l.body + '</div>' +
+        '<div class="letter-sign">' + l.sign + '</div>' +
+      '</div>';
+    area.appendChild(card);
+  });
+}
+
+// ─── ENVELOPE ────────────────────────────────────────
+function triggerEnvelope(targetIdx) {
+  if (targetIdx === current) return;
+  pendingIndex = targetIdx;
+  showEnvelope(letters[targetIdx].number);
+}
+
+function showEnvelope(label) {
+  envelopeOpened = false;
+  document.getElementById('envFlap').classList.remove('open');
+  document.getElementById('letterPeek').classList.remove('rising');
+  document.getElementById('envSeal').classList.remove('cracked');
+  var envLabel = document.getElementById('envLabel');
+  envLabel.classList.remove('show');
+  envLabel.textContent = label + ' awaits…';
+  document.getElementById('main').style.display = 'none';
+  var stage = document.getElementById('envelopeStage');
+  stage.classList.add('show');
+  setTimeout(function() {
+    envLabel.classList.add('show');
+    document.getElementById('openHint').classList.add('show');
+  }, 300);
+}
+
+function openEnvelope() {
+  if (envelopeOpened) return;
+  envelopeOpened = true;
+  document.getElementById('openHint').classList.remove('show');
+  document.getElementById('envSeal').classList.add('cracked');
+  setTimeout(function() {
+    document.getElementById('envFlap').classList.add('open');
+  }, 200);
+  setTimeout(function() {
+    document.getElementById('letterPeek').classList.add('rising');
+  }, 900);
+  setTimeout(function() {
+    document.getElementById('envelopeStage').classList.remove('show');
+    document.getElementById('main').style.display = 'flex';
+    goTo(pendingIndex);
+  }, 1800);
+}
+
+// ─── NAVIGATION ──────────────────────────────────────
+function navigate(dir) {
+  var next = current + dir;
+  if (next >= TOTAL) { showFinale(); return; }
+  if (next < 0) return;
+  if (dir > 0) {
+    pendingIndex = next;
+    showEnvelope(letters[next].number);
+  } else {
+    goTo(next);
+  }
+}
+
+function goTo(idx) {
+  var prevCard = document.getElementById('card-' + current);
+  if (prevCard) prevCard.classList.remove('active');
+  document.querySelectorAll('.dot').forEach(function(d, i) {
+    d.classList.remove('active');
+    if (i < idx) d.classList.add('done'); else d.classList.remove('done');
+  });
+  current = idx;
+  var card = document.getElementById('card-' + current);
+  if (card) {
+    card.classList.add('active');
+    card.style.animation = 'none';
+    void card.offsetWidth;
+    card.style.animation = '';
+  }
+  document.querySelectorAll('.dot')[current].classList.add('active');
+  document.getElementById('finale').style.display = 'none';
+  document.getElementById('gallerySection').style.display = 'none';
+  document.getElementById('voiceSection').style.display = 'none';
+  document.getElementById('letterArea').style.display = '';
+  renderPhotoSection(current);
+  updateNav();
+  window.scrollTo({ top: document.getElementById('main').offsetTop - 10, behavior: 'smooth' });
+}
+
+function showFinale() {
+  var prevCard = document.getElementById('card-' + current);
+  if (prevCard) prevCard.classList.remove('active');
+  document.getElementById('photoSection').classList.remove('active');
+  document.getElementById('letterArea').style.display = 'none';
+  document.getElementById('finale').style.display = 'flex';
+  document.querySelectorAll('.dot').forEach(function(d){ d.classList.add('done'); });
+  document.getElementById('prevBtn').disabled = false;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('counterText').textContent = '✦ all done ✦';
+  // show gallery and voice
+  buildPolaroids();
+  document.getElementById('gallerySection').style.display = 'flex';
+  document.getElementById('voiceSection').style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restart() {
+  current = 0;
+  document.getElementById('finale').style.display = 'none';
+  document.getElementById('gallerySection').style.display = 'none';
+  document.getElementById('voiceSection').style.display = 'none';
+  document.getElementById('letterArea').style.display = '';
+  buildUI();
+  goTo(0);
+}
+
+function updateNav() {
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('nextBtn').textContent = current === TOTAL - 1 ? 'finish 💜' : 'next →';
+  document.getElementById('counterText').textContent = 'Letter ' + (current + 1) + ' of ' + TOTAL;
+}
+
+// ─── PHOTO SLOTS (between letters) ───────────────────
+function renderPhotoSection(idx) {
+  var section = document.getElementById('photoSection');
+  var grid = document.getElementById('photoGrid');
+  var label = document.getElementById('photoLabel');
+  if (photoAfter.has(idx)) {
+    section.classList.add('active');
+    label.textContent = photoLabels[idx] || '📸 add a photo';
+    grid.innerHTML = '';
+    for (var s = 0; s < 2; s++) {
+      (function(slotIdx) {
+        var key = 'photo_' + idx + '_' + slotIdx;
+        var slot = document.createElement('div');
+        slot.className = 'photo-slot';
+        slot.innerHTML = '<span class="slot-icon">📸</span><span>tap to add a photo</span>';
+        var fileIn = document.createElement('input');
+        fileIn.type = 'file'; fileIn.accept = 'image/*';
+        fileIn.addEventListener('change', function(e){ loadSlotPhoto(e, key, slot); });
+        slot.appendChild(fileIn);
+        if (uploadedPhotos[key]) {
+          var img = document.createElement('img');
+          img.src = uploadedPhotos[key];
+          slot.appendChild(img);
+          slot.querySelector('.slot-icon').style.display = 'none';
+          slot.querySelector('span:not(.slot-icon)').style.display = 'none';
+        }
+        grid.appendChild(slot);
+      })(s);
+    }
+  } else {
+    section.classList.remove('active');
+  }
+}
+
+function loadSlotPhoto(e, key, slotEl) {
+  var file = e.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    uploadedPhotos[key] = ev.target.result;
+    var icon = slotEl.querySelector('.slot-icon');
+    var txt = slotEl.querySelector('span:not(.slot-icon)');
+    if (icon) icon.style.display = 'none';
+    if (txt) txt.style.display = 'none';
+    var img = slotEl.querySelector('img');
+    if (!img) { img = document.createElement('img'); slotEl.appendChild(img); }
+    img.src = ev.target.result;
+    addFloatingPhoto(ev.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── POLAROID GALLERY ─────────────────────────────────
+function buildPolaroids() {
+  var board = document.getElementById('polaroidBoard');
+  if (board.children.length > 0) return;
+  var tilts = [-6, 3, -2, 5, -4, 2, -3, 6];
+  for (var i = 0; i < 8; i++) {
+    (function(idx) {
+      var wrap = document.createElement('div');
+      wrap.className = 'polaroid';
+      wrap.style.transform = 'rotate(' + tilts[idx] + 'deg)';
+      var imgBox = document.createElement('div');
+      imgBox.className = 'polaroid-img';
+      imgBox.id = 'gphoto-' + idx;
+      var emptyDiv = document.createElement('div');
+      emptyDiv.className = 'empty-icon';
+      emptyDiv.innerHTML = '📷<span>add a photo</span>';
+      var fileIn = document.createElement('input');
+      fileIn.type = 'file'; fileIn.accept = 'image/*';
+      fileIn.addEventListener('change', function(e){ loadGalleryPhoto(e, idx); });
+      imgBox.appendChild(emptyDiv);
+      imgBox.appendChild(fileIn);
+      if (galleryPhotos[idx]) {
+        emptyDiv.style.display = 'none';
+        var img = document.createElement('img');
+        img.src = galleryPhotos[idx];
+        imgBox.appendChild(img);
+      }
+      var pin = document.createElement('div'); pin.className = 'polaroid-pin';
+      var cap = document.createElement('div'); cap.className = 'polaroid-caption';
+      cap.innerHTML = '<span>' + polaroidCaptions[idx] + '</span>';
+      wrap.appendChild(pin);
+      wrap.appendChild(imgBox);
+      wrap.appendChild(cap);
+      board.appendChild(wrap);
+    })(i);
+  }
+}
+
+function loadGalleryPhoto(e, idx) {
+  var file = e.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    galleryPhotos[idx] = ev.target.result;
+    var box = document.getElementById('gphoto-' + idx);
+    var empty = box.querySelector('.empty-icon');
+    if (empty) empty.style.display = 'none';
+    var img = box.querySelector('img');
+    if (!img) { img = document.createElement('img'); box.appendChild(img); }
+    img.src = ev.target.result;
+    addFloatingPhoto(ev.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── CASSETTE PLAYER ──────────────────────────────────
+var audioEl = document.getElementById('audioEl');
+
+function loadAudio(e) {
+  var file = e.target.files[0]; if (!file) return;
+  audioEl.src = URL.createObjectURL(file);
+  audioEl.load();
+  document.getElementById('tapeTitle').textContent = file.name.replace(/\.[^.]+$/, '');
+  audioEl.onloadedmetadata = function() {
+    document.getElementById('timeDuration').textContent = fmtTime(audioEl.duration);
+  };
+}
+
+function togglePlay() {
+  if (!audioEl.src) return;
+  if (isPlaying) {
+    audioEl.pause();
+    stopReels();
+    document.getElementById('playBtn').textContent = '▶';
+  } else {
+    audioEl.play();
+    spinReels();
+    document.getElementById('playBtn').textContent = '⏸';
+  }
+  isPlaying = !isPlaying;
+}
+
+function spinReels() {
+  document.getElementById('reelLeft').classList.add('spinning');
+  document.getElementById('reelRight').classList.add('spinning');
+}
+function stopReels() {
+  document.getElementById('reelLeft').classList.remove('spinning');
+  document.getElementById('reelRight').classList.remove('spinning');
+}
+
+audioEl.addEventListener('timeupdate', function() {
+  if (!audioEl.duration) return;
+  document.getElementById('progressBar').style.width = (audioEl.currentTime / audioEl.duration * 100) + '%';
+  document.getElementById('timeElapsed').textContent = fmtTime(audioEl.currentTime);
+});
+
+audioEl.addEventListener('ended', function() {
+  isPlaying = false; stopReels();
+  document.getElementById('playBtn').textContent = '▶';
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('timeElapsed').textContent = '0:00';
+});
+
+function seekAudio(e) {
+  if (!audioEl.duration) return;
+  var rect = document.getElementById('progressWrap').getBoundingClientRect();
+  audioEl.currentTime = ((e.clientX - rect.left) / rect.width) * audioEl.duration;
+}
+
+function skipAudio(secs) {
+  if (!audioEl.duration) return;
+  audioEl.currentTime = Math.max(0, Math.min(audioEl.duration, audioEl.currentTime + secs));
+}
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+
+// ─── FLOATING BG ──────────────────────────────────────
+function addFloatingPhoto(src) {
+  var container = document.getElementById('bgFloats');
+  var el = document.createElement('div');
+  el.className = 'bg-photo';
+  el.style.left = Math.random() * 88 + 'vw';
+  el.style.animationDuration = (14 + Math.random() * 12) + 's';
+  el.style.animationDelay = '0s';
+  var size = 65 + Math.random() * 50;
+  el.style.width = el.style.height = size + 'px';
+  var img = document.createElement('img'); img.src = src; el.appendChild(img);
+  container.appendChild(el);
+}
+
+function spawnBgElements() {
+  var container = document.getElementById('bgFloats');
+  var emojis = ['💜','✦','🌸','💫','✨','🌷','💎','🎂','🍰','🎀'];
+  for (var i = 0; i < 14; i++) {
+    var el = document.createElement('div');
+    el.className = 'heart-float';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+    el.style.animationDuration = (10 + Math.random() * 14) + 's';
+    el.style.animationDelay = (Math.random() * 14) + 's';
+    container.appendChild(el);
+  }
+  var placeholders = ['🥰','😍','😊','💜','💃'];
+  for (var j = 0; j < 5; j++) {
+    var pl = document.createElement('div');
+    pl.className = 'bg-photo';
+    pl.style.left = (5 + Math.random() * 88) + 'vw';
+    pl.style.animationDuration = (16 + Math.random() * 14) + 's';
+    pl.style.animationDelay = (Math.random() * 18) + 's';
+    var sz = 55 + Math.random() * 45;
+    pl.style.width = pl.style.height = sz + 'px';
+    pl.style.fontSize = Math.round(sz * 0.38) + 'px';
+    pl.textContent = placeholders[j % placeholders.length];
+    container.appendChild(pl);
+  }
+}
+
+// ─── SPLASH STARS ─────────────────────────────────────
+function makeStars() {
+  var container = document.getElementById('splashStars');
+  for (var i = 0; i < 80; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    s.style.width = s.style.height = (1 + Math.random() * 2.5) + 'px';
+    container.appendChild(s);
+  }
+}
+
+function startJourney() {
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('main').style.display = 'flex';
+    spawnBgElements();
+  }, 900);
+}
+
+// ─── INIT ──────────────────────────────────────────────
+makeStars();
+buildUI();
+</script>
+</body>
+</html>
