@@ -695,17 +695,23 @@ function spawnBgElements() {
     el.style.animationDelay = (Math.random() * 14) + 's';
     container.appendChild(el);
   }
-  var placeholders = ['🥰','😍','😊','💜','💃'];
-  for (var j = 0; j < 5; j++) {
+  // Use her actual photos as floating background bubbles
+  var bgPhotoSrcs = [
+    'photos/photo1.jpg','photos/photo2.jpg','photos/photo3.jpg',
+    'photos/photo4.jpg','photos/photo5.jpg','photos/photo6.jpg',
+    'photos/photo7.jpg','photos/photo8.jpg','photos/photo9.jpg','photos/photo10.jpg'
+  ];
+  for (var j = 0; j < 8; j++) {
     var pl = document.createElement('div');
     pl.className = 'bg-photo';
     pl.style.left = (5 + Math.random() * 88) + 'vw';
-    pl.style.animationDuration = (16 + Math.random() * 14) + 's';
-    pl.style.animationDelay = (Math.random() * 18) + 's';
-    var sz = 55 + Math.random() * 45;
+    pl.style.animationDuration = (18 + Math.random() * 14) + 's';
+    pl.style.animationDelay = (j * 3 + Math.random() * 4) + 's';
+    var sz = 55 + Math.random() * 50;
     pl.style.width = pl.style.height = sz + 'px';
-    pl.style.fontSize = Math.round(sz * 0.38) + 'px';
-    pl.textContent = placeholders[j % placeholders.length];
+    var img = document.createElement('img');
+    img.src = bgPhotoSrcs[j % bgPhotoSrcs.length];
+    pl.appendChild(img);
     container.appendChild(pl);
   }
 }
