@@ -735,6 +735,37 @@ function startJourney() {
 }
 
 // ─── INIT ──────────────────────────────────────────────
+// ── PHOTO INDEX ─────────────────────────────────────
+// Photos live in the photos/ folder next to this file
+// Polaroid gallery: photos 1-8
+// Letter slots: photos 9-10 (after letter 2), photos 1-2 (after letter 4)
+var PHOTOS = {
+  gallery: [
+    'photos/photo1.jpg',
+    'photos/photo2.jpg',
+    'photos/photo3.jpg',
+    'photos/photo4.jpg',
+    'photos/photo5.jpg',
+    'photos/photo6.jpg',
+    'photos/photo7.jpg',
+    'photos/photo8.jpg'
+  ],
+  slots: {
+    'photo_1_0': 'photos/photo9.jpg',
+    'photo_1_1': 'photos/photo10.jpg',
+    'photo_3_0': 'photos/photo1.jpg',
+    'photo_3_1': 'photos/photo2.jpg'
+  }
+};
+
+// Pre-load into the photo objects so they show on render
+for (var _gi = 0; _gi < PHOTOS.gallery.length; _gi++) {
+  galleryPhotos[_gi] = PHOTOS.gallery[_gi];
+}
+for (var _sk in PHOTOS.slots) {
+  uploadedPhotos[_sk] = PHOTOS.slots[_sk];
+}
+
 makeStars();
 buildUI();
 </script>
